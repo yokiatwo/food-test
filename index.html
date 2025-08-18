@@ -241,7 +241,7 @@
     };
 // === 後端紀錄設定（Google Apps Script） ===
 const ENABLE_LOGGING = true;
-const LOG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwjZFtAlk86F5p9wHxcUV3fXGctcYF1pYvFiTtnTHtUrKNlaoBF-7G7124QHIptTd4f/exec';
+const LOG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzEsbc1uIDRIEtmFfjH6_AP8fpNwW0KmpcBmnpjGuW3aR48CnYPovjUFCrTDalCilQ/exec';
 
 function sendLog(payload){
   if (!ENABLE_LOGGING || !LOG_ENDPOINT) return;
@@ -256,21 +256,7 @@ function sendLog(payload){
   } catch(e){}
 }
 
-    const LOG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx0wqqIDISyXxlpJVyhh3hRoDlaF3z2-HFV4rvaKnjSodBn9l3V86d_ZakQVcmEiSo9/exec';
-    const ENABLE_LOGGING = true;
-
-    function sendLog(payload){
-      if (!ENABLE_LOGGING || !LOG_ENDPOINT) return;
-      try {
-        fetch(LOG_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-          mode: 'no-cors',
-          keepalive: true
-        }).catch(()=>{});
-      } catch(e){}
-    }
+    
 
     const stages = ['stage0', 'stage1', 'stage2', 'stage3', 'stageResult'];
     let current = 0;
