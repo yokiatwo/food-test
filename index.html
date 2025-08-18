@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -8,15 +9,13 @@
     :root { --maxw: 880px; --gap: 14px; --brand: #4f46e5; }
     * { box-sizing: border-box; }
     html, body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Noto Sans TC, Arial; color: #111; height: 100%; }
-/* 全螢幕背景層，避免瀏覽器對 body 背景處理差異 */
-.bg { position: fixed; inset: 0; z-index: 0; }
-.bg::before { content: ""; position: absolute; inset: 0;
-  background: url("https://drive.google.com/thumbnail?id=1v9Z38JnqaFP9IyTV7WQX-ga701pEbHcb&sz=w2400") no-repeat center center;
-  background-size: cover;
-}
-/* 薄霧遮罩，提升文字對比 */
-.bg::after { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,.25); }
-.wrap { position: relative; z-index: 1; }
+    .bg { position: fixed; inset: 0; z-index: 0; }
+    .bg::before { content: ""; position: absolute; inset: 0;
+      background: url("https://drive.google.com/thumbnail?id=1v9Z38JnqaFP9IyTV7WQX-ga701pEbHcb&sz=w2400") no-repeat center center;
+      background-size: cover;
+    }
+    .bg::after { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,.25); }
+    .wrap { position: relative; z-index: 1; }
 
     .wrap { max-width: var(--maxw); margin: 0 auto; padding: 16px; }
     .header { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
@@ -28,19 +27,18 @@
 
     .stage { display: none; }
     .stage.active { display: block; animation: fadeIn .38s ease both; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
     .card { background: #fff; border-radius: 16px; box-shadow: 0 12px 28px rgba(0,0,0,.06); padding: 20px; }
     .hero { text-align: center; padding: 24px; }
     .hero h1 { margin: 0 0 8px; font-size: 28px; }
     .hero p { margin: 0 0 16px; color: #555; }
-/* 封面卡面統一為奶油色系 */
-.card.hero { background: rgba(255, 247, 237, 0.92); border: 1px solid #F5E6CC; }
+    .card.hero { background: rgba(255, 247, 237, 0.92); border: 1px solid #F5E6CC; }
 
     .grid { display: grid; gap: var(--gap); }
     @media (min-width: 720px) { .grid { grid-template-columns: 1fr 1fr; } }
 
-    .qcard { border: 1px solid #F5E6CC; border-radius: 14px; padding: 14px; background: rgba(255, 247, 237, 0.92); /* 非常淡的奶油色 */ box-shadow: 0 2px 6px rgba(0,0,0,.04); }
+    .qcard { border: 1px solid #F5E6CC; border-radius: 14px; padding: 14px; background: rgba(255, 247, 237, 0.92); box-shadow: 0 2px 6px rgba(0,0,0,.04); }
     .qcard h3 { margin: 0 0 10px; font-size: 16px; }
     .opts { display: grid; gap: 8px; }
     label.option { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #e9e9f5; padding: 10px 12px; border-radius: 10px; cursor: pointer; }
@@ -57,65 +55,34 @@
 
     .status { margin-top: 10px; color: #d00; font-size: 13px; }
 
-    /* 結果頁 */
     .result-hero { background: linear-gradient(135deg, #eef2ff, #fff); border: 1px solid #e8eaff; border-radius: 16px; padding: 16px; }
-.result-hero h2 { margin: 6px 0; font-size: 24px; }
-.result-hero .muted { color: #666; font-size: 13px; }
-/* 結果卡面主題色 */
-.result-card { border-radius: 16px; box-shadow: 0 12px 28px rgba(0,0,0,.12); position: relative; overflow: hidden; }
-.result-a { background: rgba(173, 216, 230, 0.9); /* 淺藍 */ border: 1px solid rgba(59,130,246,.25);} 
-.result-b { background: rgba(144, 238, 144, 0.9); /* 淺綠 */ border: 1px solid rgba(34,197,94,.25);} 
-.result-c { background: rgba(255, 255, 224, 0.92); /* 淺黃 */ border: 1px solid rgba(250,204,21,.3);} 
-.result-d { background: rgba(255, 182, 193, 0.92); /* 淺粉 */ border: 1px solid rgba(244,63,94,.25);} 
-/* 結果卡面貼圖與邊框細節 */
-.result-card::after { position: absolute; right: -4px; top: -6px; font-size: 96px; opacity: .28; line-height: 1; transform: rotate(10deg); }
-.result-a::after { content: "🍧"; }
-.result-b::after { content: "🥗"; }
-.result-c::after { content: "🍰"; }
-.result-d::after { content: "🌶️"; }
-/* 邊框風格微差異 */
-.result-a { border-style: solid; }
-.result-b { border-style: dashed; }
-.result-c { border-style: dotted; }
-.result-d { border-style: solid; border-width: 2px; } 
+    .result-hero h2 { margin: 6px 0; font-size: 24px; }
+    .result-hero .muted { color: #666; font-size: 13px; }
+    .result-card { border-radius: 16px; box-shadow: 0 12px 28px rgba(0,0,0,.12); position: relative; overflow: hidden; }
+    .result-a { background: rgba(173, 216, 230, 0.9); border: 1px solid rgba(59,130,246,.25);} 
+    .result-b { background: rgba(144, 238, 144, 0.9); border: 1px solid rgba(34,197,94,.25);} 
+    .result-c { background: rgba(255, 255, 224, 0.92); border: 1px solid rgba(250,204,21,.3);} 
+    .result-d { background: rgba(255, 182, 193, 0.92); border: 1px solid rgba(244,63,94,.25);} 
+    .result-card::after { position: absolute; right: -4px; top: -6px; font-size: 96px; opacity: .28; line-height: 1; transform: rotate(10deg); }
+    .result-a::after { content: "🍧"; }
+    .result-b::after { content: "🥗"; }
+    .result-c::after { content: "🍰"; }
+    .result-d::after { content: "🌶️"; }
+    .result-a { border-style: solid; }
+    .result-b { border-style: dashed; }
+    .result-c { border-style: dotted; }
+    .result-d { border-style: solid; border-width: 2px; } 
     .result-hero h2 { margin: 6px 0; font-size: 24px; }
     .result-hero .muted { color: #666; font-size: 13px; }
 
     .hidden { display: none; }
-/* 隱藏灰色結果代碼行 */
-#resultCode { display: none; }
-/* 招生宣導區域 */
-.promo { margin-top: 14px; background: rgba(255,255,255,.6); border: 1px dashed #e5d3b5; border-radius: 12px; padding: 12px; }
-.promo-text { margin: 0 0 10px; font-weight: 600; color: #6b4e16; }
-.promo-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.promo-btn { text-decoration: none; display: inline-block; }
-.promo-qr { width: 120px; height: 120px; border-radius: 8px; background: #fff; padding: 6px; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
-.promo-note { margin-top: 6px; font-size: 12px; color: #7a6a4a; }
-/* IG 純色按鈕（取代原本的漸層版本） */
-.ig-btn {
-  background: #cc2366;            /* 純色主色 */
-  color: #fff;
-  border: none;
-  border-radius: 28px;
-  padding: 12px 20px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.18);
-  text-decoration: none;
-  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
-}
-.ig-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.24);
-  background: #a91d55;            /* hover 稍微深一點 */
-}
-.ig-icon { width: 18px; height: 18px; fill: #fff; }
-.promo-note { display: none; }
-
+    #resultCode { display: none; }
+    .promo { margin-top: 14px; background: rgba(255,255,255,.6); border: 1px dashed #e5d3b5; border-radius: 12px; padding: 12px; }
+    .promo-text { margin: 0 0 10px; font-weight: 600; color: #6b4e16; }
+    .promo-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .promo-btn { text-decoration: none; display: inline-block; }
+    .promo-qr { width: 120px; height: 120px; border-radius: 8px; background: #fff; padding: 6px; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+    .promo-note { margin-top: 6px; font-size: 12px; color: #7a6a4a; }
   </style>
 </head>
 <body>
@@ -129,7 +96,6 @@
     <div class="progress"><span id="progressBar"></span></div>
     <div class="progress-text" id="progressText"></div>
 
-    <!-- 封面頁 -->
     <section class="stage active" id="stage0">
       <div class="card hero">
         <h1>找出你的美食性格</h1>
@@ -138,7 +104,6 @@
       </div>
     </section>
 
-    <!-- 第 1 頁：Q1-Q3 -->
     <section class="stage" id="stage1">
       <div class="grid">
         <div class="qcard">
@@ -175,7 +140,6 @@
       <div class="status" id="status1"></div>
     </section>
 
-    <!-- 第 2 頁：Q4-Q6 -->
     <section class="stage" id="stage2">
       <div class="grid">
         <div class="qcard">
@@ -212,7 +176,6 @@
       <div class="status" id="status2"></div>
     </section>
 
-    <!-- 第 3 頁：Q7-Q8 + 送出 -->
     <section class="stage" id="stage3">
       <div class="grid">
         <div class="qcard">
@@ -241,7 +204,6 @@
       <div class="status" id="status3"></div>
     </section>
 
-    <!-- 結果頁 -->
     <section class="stage" id="stageResult">
       <div class="card result-hero result-card result-a" id="resultCard">
         <div class="muted" id="resultCode">結果代碼：—</div>
@@ -250,16 +212,9 @@
         <div class="promo">
           <p class="promo-text">想了解更多美食資訊、加入我們社團 👉</p>
           <div class="promo-row">
-  <a class="ig-btn" href="https://www.instagram.com/ntnucookingclub_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">
-    <svg class="ig-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true" focusable="false">
-      <path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.41-30.41C293.9,120,224,120,224,120s-69.9,0-94.3,11.25a54,54,0,0,0-30.41,30.41C88,150.1,88,192,88,192s0,69.9,11.25,94.3a54,54,0,0,0,30.41,30.41C154.1,336,224,336,224,336s69.9,0,94.3-11.25a54,54,0,0,0,30.41-30.41C360,261.9,360,192,360,192S360,150.1,348.71,161.66ZM224,338a82,82,0,1,1,82-82A82,82,0,0,1,224,338Zm85.33-148.62a19.2,19.2,0,1,1-19.2-19.2A19.19,19.19,0,0,1,309.33,189.38Z"/>
-    </svg>
-    前往 IG 粉專
-  </a>
-  <img class="promo-qr" alt="社團招募 QR"
-    src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fwww.instagram.com%2Fntnucookingclub_%3Futm_source%3Dig_web_button_share_sheet%26igsh%3DZDNlZDc0MzIxNw%3D%3D" />
-</div>
-
+            <a class="btn-primary promo-btn" href="https://example.com/foodclub" target="_blank" rel="noopener">點我看招生資訊</a>
+            <img class="promo-qr" alt="社團招募 QR" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fexample.com%2Ffoodclub" />
+          </div>
           <div class="promo-note">提示：你可以把連結換成正式招生頁，QR 會自動更新；或直接改成你自己的 QR 圖片網址。</div>
         </div>
         <div class="actions" style="margin-top:14px;">
@@ -271,7 +226,6 @@
   </div>
 
   <script>
-    // —— 規則設定 ——
     const OPTION_SCORE = { a: 0, b: 1, c: 2 };
     const BUCKETS = [
       { max: 5,  code: 'A' },
@@ -285,10 +239,41 @@
       C: { title: 'C 型：風味派', desc: '你重視風味層次與儀式感，對食物與生活都有自己的講究。' },
       D: { title: 'D 型：冒險派', desc: '你樂於嘗鮮，多半不走常規路線，社交力強、創意滿點。' },
     };
+// === 後端紀錄設定（Google Apps Script） ===
+const ENABLE_LOGGING = true;
+const LOG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwjZFtAlk86F5p9wHxcUV3fXGctcYF1pYvFiTtnTHtUrKNlaoBF-7G7124QHIptTd4f/exec';
 
-    // —— 三頁流程控制 ——
+function sendLog(payload){
+  if (!ENABLE_LOGGING || !LOG_ENDPOINT) return;
+  try {
+    fetch(LOG_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      mode: 'no-cors',      // 不讀回應，最穩定
+      keepalive: true
+    }).catch(()=>{});
+  } catch(e){}
+}
+
+    const LOG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx0wqqIDISyXxlpJVyhh3hRoDlaF3z2-HFV4rvaKnjSodBn9l3V86d_ZakQVcmEiSo9/exec';
+    const ENABLE_LOGGING = true;
+
+    function sendLog(payload){
+      if (!ENABLE_LOGGING || !LOG_ENDPOINT) return;
+      try {
+        fetch(LOG_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          mode: 'no-cors',
+          keepalive: true
+        }).catch(()=>{});
+      } catch(e){}
+    }
+
     const stages = ['stage0', 'stage1', 'stage2', 'stage3', 'stageResult'];
-    let current = 0; // index in stages
+    let current = 0;
 
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
@@ -301,7 +286,6 @@
       });
       current = idx;
       updateProgress();
-      // 清掉頁面狀態訊息
       $$('.status').forEach(s => s.textContent = '');
     }
 
@@ -309,9 +293,8 @@
       const pb = $('#progressBar');
       const pt = $('#progressText');
       const hs = $('#headerStep');
-      // 只計算 3 頁作答（stage1~3），封面與結果不計入
       let step = 0, total = 3;
-      if (current>=1 && current<=3) step = current; // 1..3
+      if (current>=1 && current<=3) step = current;
       const percent = Math.round(step/total*100);
       pb.style.width = percent + '%';
       pt.textContent = step>0 ? `第 ${step} / ${total} 頁（${percent}%）` : '';
@@ -319,7 +302,6 @@
     }
 
     function validatePage(idx){
-      // 檢查每頁必答題是否都有作答
       const reqByStage = {
         1: ['q1','q2','q3'],
         2: ['q4','q5','q6'],
@@ -354,18 +336,16 @@
     }
 
     function renderResult(r){
-  const codeMap = {A:'result-a', B:'result-b', C:'result-c', D:'result-d'};
-  document.getElementById('resultCode').textContent = `結果代碼：${r.code}（總分 ${r.total}）`;
-  document.getElementById('resultTitle').textContent = r.title;
-  document.getElementById('resultDesc').textContent = r.desc;
-  // 根據結果切換卡面顏色
-  const box = document.getElementById('resultCard');
-  ['result-a','result-b','result-c','result-d'].forEach(c=>box.classList.remove(c));
-  if (codeMap[r.code]) box.classList.add(codeMap[r.code]);
-}
+      const codeMap = {A:'result-a', B:'result-b', C:'result-c', D:'result-d'};
+      document.getElementById('resultCode').textContent = `結果代碼：${r.code}（總分 ${r.total}）`;
+      document.getElementById('resultTitle').textContent = r.title;
+      document.getElementById('resultDesc').textContent = r.desc;
+      const box = document.getElementById('resultCard');
+      ['result-a','result-b','result-c','result-d'].forEach(c=>box.classList.remove(c));
+      if (codeMap[r.code]) box.classList.add(codeMap[r.code]);
+    }
 
-    // —— 事件繫結 ——
-    $('#startBtn').addEventListener('click', () => showStage(1));
+    document.getElementById('startBtn').addEventListener('click', () => showStage(1));
 
     $$('[data-back]').forEach(btn => btn.addEventListener('click', () => {
       if (current>1) showStage(current-1); else showStage(0);
@@ -376,24 +356,33 @@
       if (current<3) showStage(current+1);
     }));
 
-
-    $('#submitBtn').addEventListener('click', () => {
+    document.getElementById('submitBtn').addEventListener('click', () => {
       if (!validatePage(3)) return;
       const r = computeResult();
-      if (r.error){ $('#status3').textContent = r.error; return; }
+      if (r.error){ document.getElementById('status3').textContent = r.error; return; }
       renderResult(r);
-      showStage(4); // 結果頁
+      sendLog({
+  timestamp: new Date().toISOString(),
+  answers: r.answers,
+  total: r.total,
+  code: r.code,
+  title: r.title,
+  desc: r.desc,
+  userAgent: navigator.userAgent,
+  referrer: document.referrer || ''
+});
+
+      showStage(4);
     });
 
-    $('#restartBtn').addEventListener('click', () => {
-      // 清空選擇
+    document.getElementById('restartBtn').addEventListener('click', () => {
       for (let i=1;i<=8;i++){ const el = $$(`input[name="q${i}"]`); el.forEach(x=>x.checked=false); }
       showStage(1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // 初始化進度條
     updateProgress();
   </script>
 </body>
 </html>
+```
