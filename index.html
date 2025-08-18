@@ -50,6 +50,26 @@
 
     button { appearance: none; border: 0; padding: 10px 16px; border-radius: 12px; cursor: pointer; font-weight: 600; }
     .btn-primary { background: var(--brand); color: #fff; }
+.btn-instagram {
+  border-radius: 9999px;  /* 膠囊圓角 */
+  padding: 14px 28px;    /* 更大更舒適 */
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4); /* 粉橘漸層 */
+  color: #fff !important;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btn-instagram:hover {
+  background: linear-gradient(135deg, #fad0c4, #ff9a9e); /* hover 時漸層反轉 */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+}
+
     .btn-ghost { background: #fff; border: 1px solid #ddd; }
     .btn-flat  { background: transparent; color: var(--brand); }
 
@@ -215,7 +235,7 @@
         <div class="promo">
           <p class="promo-text">想了解更多美食資訊、加入我們社團 👉</p>
           <div class="promo-row">
-            <a class="btn-primary promo-btn" href="https://www.instagram.com/ntnucookingclub_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">師大美食社</a>
+            <a class="btn-primary promo-btn btn-instagram" href="https://www.instagram.com/ntnucookingclub_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">師大美食社</a>
             <img class="promo-qr" id="promoQR" alt="料理社 IG QR Code"
        src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fwww.instagram.com%2Fntnucookingclub_%3Futm_source%3Dig_web_button_share_sheet%26igsh%3DZDNlZDc0MzIxNw%3D%3D" />
           </div>
