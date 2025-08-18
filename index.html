@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>美食性格小測驗｜三頁式 Demo</title>
+  <style>
+    :root { --maxw: 880px; --gap: 14px; --brand: #4f46e5; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Noto Sans TC, Arial; color: #111; height: 100%; }
+/* 全螢幕背景層，避免瀏覽器對 body 背景處理差異 */
+.bg { position: fixed; inset: 0; z-index: 0; }
+.bg::before { content: ""; position: absolute; inset: 0;
+  background: url("https://drive.google.com/thumbnail?id=1v9Z38JnqaFP9IyTV7WQX-ga701pEbHcb&sz=w2400") no-repeat center center;
+  background-size: cover;
+}
+/* 薄霧遮罩，提升文字對比 */
+.bg::after { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,.25); }
+.wrap { position: relative; z-index: 1; }
+
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 16px; }
+    .header { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+    .brand { font-weight: 700; letter-spacing: .5px; }
+
+    .progress { height: 8px; background: #e9e9f7; border-radius: 999px; overflow: hidden; }
+    .progress > span { display: block; height: 100%; background: var(--brand); width: 0%; transition: width .35s ease; }
+    .progress-text { font-size: 12px; color: #666; margin-top: 6px; text-align: right; }
+
+    .stage { display: none; }
+    .stage.active { display: block; animation: fadeIn .38s ease both; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    .card { background: #fff; border-radius: 16px; box-shadow: 0 12px 28px rgba(0,0,0,.06); padding: 20px; }
+    .hero { text-align: center; padding: 24px; }
+    .hero h1 { margin: 0 0 8px; font-size: 28px; }
+    .hero p { margin: 0 0 16px; color: #555; }
+/* 封面卡面統一為奶油色系 */
+.card.hero { background: rgba(255, 247, 237, 0.92); border: 1px solid #F5E6CC; }
+
+    .grid { display: grid; gap: var(--gap); }
+    @media (min-width: 720px) { .grid { grid-template-columns: 1fr 1fr; } }
+
+    .qcard { border: 1px solid #F5E6CC; border-radius: 14px; padding: 14px; background: rgba(255, 247, 237, 0.92); /* 非常淡的奶油色 */ box-shadow: 0 2px 6px rgba(0,0,0,.04); }
+    .qcard h3 { margin: 0 0 10px; font-size: 16px; }
+    .opts { display: grid; gap: 8px; }
+    label.option { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #e9e9f5; padding: 10px 12px; border-radius: 10px; cursor: pointer; }
+    label.option:hover { border-color: #FDE68A; background: #FFF7ED; }
+    input[type="radio"]{ transform: scale(1.1); }
+
+    .actions { display: flex; gap: 10px; justify-content: space-between; margin-top: 16px; flex-wrap: wrap; }
+    .right { margin-left: auto; display: flex; gap: 10px; }
+
+    button { appearance: none; border: 0; padding: 10px 16px; border-radius: 12px; cursor: pointer; font-weight: 600; }
+    .btn-primary { background: var(--brand); color: #fff; }
+    .btn-ghost { background: #fff; border: 1px solid #ddd; }
+    .btn-flat  { background: transparent; color: var(--brand); }
+
+    .status { margin-top: 10px; color: #d00; font-size: 13px; }
+
+    /* 結果頁 */
+    .result-hero { background: linear-gradient(135deg, #eef2ff, #fff); border: 1px solid #e8eaff; border-radius: 16px; padding: 16px; }
+.result-hero h2 { margin: 6px 0; font-size: 24px; }
+.result-hero .muted { color: #666; font-size: 13px; }
+/* 結果卡面主題色 */
+.result-card { border-radius: 16px; box-shadow: 0 12px 28px rgba(0,0,0,.12); position: relative; overflow: hidden; }
+.result-a { background: rgba(173, 216, 230, 0.9); /* 淺藍 */ border: 1px solid rgba(59,130,246,.25);} 
+.result-b { background: rgba(144, 238, 144, 0.9); /* 淺綠 */ border: 1px solid rgba(34,197,94,.25);} 
+.result-c { background: rgba(255, 255, 224, 0.92); /* 淺黃 */ border: 1px solid rgba(250,204,21,.3);} 
+.result-d { background: rgba(255, 182, 193, 0.92); /* 淺粉 */ border: 1px solid rgba(244,63,94,.25);} 
+/* 結果卡面貼圖與邊框細節 */
+.result-card::after { position: absolute; right: -4px; top: -6px; font-size: 96px; opacity: .28; line-height: 1; transform: rotate(10deg); }
+.result-a::after { content: "🍧"; }
+.result-b::after { content: "🥗"; }
+.result-c::after { content: "🍰"; }
+.result-d::after { content: "🌶️"; }
+/* 邊框風格微差異 */
+.result-a { border-style: solid; }
+.result-b { border-style: dashed; }
+.result-c { border-style: dotted; }
+.result-d { border-style: solid; border-width: 2px; } 
+    .result-hero h2 { margin: 6px 0; font-size: 24px; }
+    .result-hero .muted { color: #666; font-size: 13px; }
+
+    .hidden { display: none; }
+/* 隱藏灰色結果代碼行 */
+#resultCode { display: none; }
+/* 招生宣導區域 */
+.promo { margin-top: 14px; background: rgba(255,255,255,.6); border: 1px dashed #e5d3b5; border-radius: 12px; padding: 12px; }
+.promo-text { margin: 0 0 10px; font-weight: 600; color: #6b4e16; }
+.promo-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.promo-btn { text-decoration: none; display: inline-block; }
+.promo-qr { width: 120px; height: 120px; border-radius: 8px; background: #fff; padding: 6px; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+.promo-note { margin-top: 6px; font-size: 12px; color: #7a6a4a; }
+/* IG 純色按鈕（取代原本的漸層版本） */
+.ig-btn {
+  background: #cc2366;            /* 純色主色 */
+  color: #fff;
+  border: none;
+  border-radius: 28px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+  text-decoration: none;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+.ig-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.24);
+  background: #a91d55;            /* hover 稍微深一點 */
+}
+.ig-icon { width: 18px; height: 18px; fill: #fff; }
+.promo-note { display: none; }
+
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="wrap">
+    <div class="header">
+      <div class="brand">🍽 美食性格小測驗</div>
+      <div id="headerStep" class="progress-text">準備開始</div>
+    </div>
+
+    <div class="progress"><span id="progressBar"></span></div>
+    <div class="progress-text" id="progressText"></div>
+
+    <!-- 封面頁 -->
+    <section class="stage active" id="stage0">
+      <div class="card hero">
+        <h1>找出你的美食性格</h1>
+        <p>8 題 × 三選一，約 30 秒完成。手機友善版面，三頁作答、最後一頁顯示結果。</p>
+        <button class="btn-primary" id="startBtn">開始測驗</button>
+      </div>
+    </section>
+
+    <!-- 第 1 頁：Q1-Q3 -->
+    <section class="stage" id="stage1">
+      <div class="grid">
+        <div class="qcard">
+          <h3>1. 天氣熱會選擇…</h3>
+          <div class="opts">
+            <label class="option"><input type="radio" name="q1" value="a"> a. 挫冰</label>
+            <label class="option"><input type="radio" name="q1" value="b"> b. 雪糕</label>
+            <label class="option"><input type="radio" name="q1" value="c"> c. 霜淇淋</label>
+          </div>
+        </div>
+        <div class="qcard">
+          <h3>2. 最無法接受下列何者…</h3>
+          <div class="opts">
+            <label class="option"><input type="radio" name="q2" value="a"> a. 豬血糕比薩</label>
+            <label class="option"><input type="radio" name="q2" value="b"> b. 香菜雪糕</label>
+            <label class="option"><input type="radio" name="q2" value="c"> c. 蝦米霜淇淋</label>
+          </div>
+        </div>
+        <div class="qcard">
+          <h3>3. 吃飯更喜歡吃…</h3>
+          <div class="opts">
+            <label class="option"><input type="radio" name="q3" value="a"> a. 飯</label>
+            <label class="option"><input type="radio" name="q3" value="b"> b. 麵</label>
+            <label class="option"><input type="radio" name="q3" value="c"> c. 麵包類</label>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn-flat" data-back>返回</button>
+        <div class="right">
+          <button class="btn-primary" data-next>下一頁</button>
+        </div>
+      </div>
+      <div class="status" id="status1"></div>
+    </section>
+
+    <!-- 第 2 頁：Q4-Q6 -->
+    <section class="stage" id="stage2">
+      <div class="grid">
+        <div class="qcard">
+          <h3>4. 拿到餐盒最先吃…</h3>
+          <div class="opts">
+            <label class="option"><input type="radio" name="q4" value="a"> a. 紅豆麵包</label>
+            <label class="option"><input type="radio" name="q4" value="b"> b. 蛋糕捲</label>
+            <label class="option"><input type="radio" name="q4" value="c"> c. 菠蘿麵包</label>
+          </div>
+        </div>
+        <div class="qcard">
+          <h3>5. 喜歡哪種料理</h3>
+          <div class="opts">
+            <label class="option"><input type="radio" name="q5" value="a"> a. 韓式</label>
+            <label class="option"><input type="radio" name="q5" value="b"> b. 日式</label>
+            <label class="option"><input type="radio" name="q5" value="c"> c. 台式</label>
+          </div>
+        </div>
+        <div class="qcard">
+          <h3>6. 喜歡的食物會…</h3>
+          <div class="opts">
+            <label class="option"><input type="radio" name="q6" value="a"> a. 第一口先吃</label>
+            <label class="option"><input type="radio" name="q6" value="b"> b. 留到最後再吃</label>
+            <label class="option"><input type="radio" name="q6" value="c"> c. 想吃就吃不會管太多</label>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn-flat" data-back>返回</button>
+        <div class="right">
+          <button class="btn-primary" data-next>下一頁</button>
+        </div>
+      </div>
+      <div class="status" id="status2"></div>
+    </section>
+
+    <!-- 第 3 頁：Q7-Q8 + 送出 -->
+    <section class="stage" id="stage3">
+      <div class="grid">
+        <div class="qcard">
+          <h3>7. 吃咖哩會…</h3>
+          <div class="opts">
+            <label class="option"><input type="radio" name="q7" value="a"> a. 暴力拌勻</label>
+            <label class="option"><input type="radio" name="q7" value="b"> b. 一口飯一口醬</label>
+            <label class="option"><input type="radio" name="q7" value="c"> c. 先吃完醬再吃飯</label>
+          </div>
+        </div>
+        <div class="qcard">
+          <h3>8. 飲料點…</h3>
+          <div class="opts">
+            <label class="option"><input type="radio" name="q8" value="a"> a. 微糖</label>
+            <label class="option"><input type="radio" name="q8" value="b"> b. 半糖</label>
+            <label class="option"><input type="radio" name="q8" value="c"> c. 全糖</label>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn-flat" data-back>返回</button>
+        <div class="right">
+          <button class="btn-primary" id="submitBtn">提交答案</button>
+        </div>
+      </div>
+      <div class="status" id="status3"></div>
+    </section>
+
+    <!-- 結果頁 -->
+    <section class="stage" id="stageResult">
+      <div class="card result-hero result-card result-a" id="resultCard">
+        <div class="muted" id="resultCode">結果代碼：—</div>
+        <h2 id="resultTitle">你的美食性格是 —— </h2>
+        <p id="resultDesc" style="margin:8px 0 0;">將在這裡顯示你的描述。</p>
+        <div class="promo">
+          <p class="promo-text">想了解更多美食資訊、加入我們社團 👉</p>
+          <div class="promo-row">
+  <a class="ig-btn" href="https://www.instagram.com/ntnucookingclub_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">
+    <svg class="ig-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true" focusable="false">
+      <path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.41-30.41C293.9,120,224,120,224,120s-69.9,0-94.3,11.25a54,54,0,0,0-30.41,30.41C88,150.1,88,192,88,192s0,69.9,11.25,94.3a54,54,0,0,0,30.41,30.41C154.1,336,224,336,224,336s69.9,0,94.3-11.25a54,54,0,0,0,30.41-30.41C360,261.9,360,192,360,192S360,150.1,348.71,161.66ZM224,338a82,82,0,1,1,82-82A82,82,0,0,1,224,338Zm85.33-148.62a19.2,19.2,0,1,1-19.2-19.2A19.19,19.19,0,0,1,309.33,189.38Z"/>
+    </svg>
+    前往 IG 粉專
+  </a>
+  <img class="promo-qr" alt="社團招募 QR"
+    src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fwww.instagram.com%2Fntnucookingclub_%3Futm_source%3Dig_web_button_share_sheet%26igsh%3DZDNlZDc0MzIxNw%3D%3D" />
+</div>
+
+          <div class="promo-note">提示：你可以把連結換成正式招生頁，QR 會自動更新；或直接改成你自己的 QR 圖片網址。</div>
+        </div>
+        <div class="actions" style="margin-top:14px;">
+          <button class="btn-ghost" id="restartBtn">再測一次</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // —— 規則設定 ——
+    const OPTION_SCORE = { a: 0, b: 1, c: 2 };
+    const BUCKETS = [
+      { max: 5,  code: 'A' },
+      { max: 10, code: 'B' },
+      { max: 15, code: 'C' },
+      { max: 24, code: 'D' },
+    ];
+    const RESULT_TEXTS = {
+      A: { title: 'A 型：清爽派', desc: '你偏愛簡潔清爽、直球的口味選擇，做事有效率，不拖泥帶水。' },
+      B: { title: 'B 型：平衡派', desc: '你擅長在口味與口感間取得平衡，做決策也講求穩健與彈性。' },
+      C: { title: 'C 型：風味派', desc: '你重視風味層次與儀式感，對食物與生活都有自己的講究。' },
+      D: { title: 'D 型：冒險派', desc: '你樂於嘗鮮，多半不走常規路線，社交力強、創意滿點。' },
+    };
+
+    // —— 三頁流程控制 ——
+    const stages = ['stage0', 'stage1', 'stage2', 'stage3', 'stageResult'];
+    let current = 0; // index in stages
+
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+    function showStage(idx) {
+      stages.forEach((id,i) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.toggle('active', i === idx);
+      });
+      current = idx;
+      updateProgress();
+      // 清掉頁面狀態訊息
+      $$('.status').forEach(s => s.textContent = '');
+    }
+
+    function updateProgress(){
+      const pb = $('#progressBar');
+      const pt = $('#progressText');
+      const hs = $('#headerStep');
+      // 只計算 3 頁作答（stage1~3），封面與結果不計入
+      let step = 0, total = 3;
+      if (current>=1 && current<=3) step = current; // 1..3
+      const percent = Math.round(step/total*100);
+      pb.style.width = percent + '%';
+      pt.textContent = step>0 ? `第 ${step} / ${total} 頁（${percent}%）` : '';
+      hs.textContent = step>0 ? `第 ${step} / ${total} 頁` : (current===4? '完成' : '準備開始');
+    }
+
+    function validatePage(idx){
+      // 檢查每頁必答題是否都有作答
+      const reqByStage = {
+        1: ['q1','q2','q3'],
+        2: ['q4','q5','q6'],
+        3: ['q7','q8'],
+      };
+      const ids = reqByStage[idx] || [];
+      let missing = [];
+      ids.forEach(name => {
+        const checked = $$(`input[name="${name}"]:checked`).length>0;
+        if (!checked) missing.push(name);
+      });
+      if (missing.length){
+        const statusEl = document.getElementById('status'+idx);
+        const map = {q1:'第1題',q2:'第2題',q3:'第3題',q4:'第4題',q5:'第5題',q6:'第6題',q7:'第7題',q8:'第8題'};
+        statusEl.textContent = '請先作答：' + missing.map(k=>map[k]).join('、');
+        return false;
+      }
+      return true;
+    }
+
+    function computeResult(){
+      let total = 0; const answers = {};
+      for (let i=1;i<=8;i++){
+        const el = $(`input[name="q${i}"]:checked`);
+        if (!el) return { error: `第 ${i} 題尚未作答` };
+        const v = el.value; answers['q'+i] = v;
+        total += OPTION_SCORE[v] ?? 0;
+      }
+      const bucket = BUCKETS.find(b => total <= b.max) || BUCKETS[BUCKETS.length-1];
+      const def = RESULT_TEXTS[bucket.code] || { title:'未定義', desc:'請檢查規則設定' };
+      return { total, code: bucket.code, title: def.title, desc: def.desc, answers };
+    }
+
+    function renderResult(r){
+  const codeMap = {A:'result-a', B:'result-b', C:'result-c', D:'result-d'};
+  document.getElementById('resultCode').textContent = `結果代碼：${r.code}（總分 ${r.total}）`;
+  document.getElementById('resultTitle').textContent = r.title;
+  document.getElementById('resultDesc').textContent = r.desc;
+  // 根據結果切換卡面顏色
+  const box = document.getElementById('resultCard');
+  ['result-a','result-b','result-c','result-d'].forEach(c=>box.classList.remove(c));
+  if (codeMap[r.code]) box.classList.add(codeMap[r.code]);
+}
+
+    // —— 事件繫結 ——
+    $('#startBtn').addEventListener('click', () => showStage(1));
+
+    $$('[data-back]').forEach(btn => btn.addEventListener('click', () => {
+      if (current>1) showStage(current-1); else showStage(0);
+    }));
+
+    $$('[data-next]').forEach(btn => btn.addEventListener('click', () => {
+      if (!validatePage(current)) return;
+      if (current<3) showStage(current+1);
+    }));
+
+
+    $('#submitBtn').addEventListener('click', () => {
+      if (!validatePage(3)) return;
+      const r = computeResult();
+      if (r.error){ $('#status3').textContent = r.error; return; }
+      renderResult(r);
+      showStage(4); // 結果頁
+    });
+
+    $('#restartBtn').addEventListener('click', () => {
+      // 清空選擇
+      for (let i=1;i<=8;i++){ const el = $$(`input[name="q${i}"]`); el.forEach(x=>x.checked=false); }
+      showStage(1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // 初始化進度條
+    updateProgress();
+  </script>
+</body>
+</html>
