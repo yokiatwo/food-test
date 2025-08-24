@@ -105,6 +105,43 @@
     .promo-note { margin-top: 6px; font-size: 12px; color: #7a6a4a; }
 /* 背景與其偽元素不吃事件，避免偶發擋住按鈕 */
 .bg, .bg::before, .bg::after { pointer-events: none; }
+/* 結尾區塊的排版與樣式強化 */
+.promo-row { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 720px) { .promo-row { grid-template-columns: 1fr 1fr; } }
+
+.promo-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+
+.promo-caption {
+  font-size: 12px; color: #7a6a4a;
+  background: rgba(255,255,255,.7);
+  padding: 4px 8px; border-radius: 8px;
+}
+
+/* QR 改為可點擊的小卡片樣式（與膠囊按鈕做出區隔） */
+.promo-qr-link {
+  display: inline-block;
+  border: 1px dashed #e5d3b5;
+  background: #fff;
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.promo-qr-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,.12);
+}
+
+/* QR 稍微放大，畫面更平衡（覆蓋原 120px） */
+.promo-qr { width: 140px; height: 140px; }
+/* 結果描述排版（字多時更好讀） */
+#resultDesc {
+  font-size: 16px;
+  line-height: 1.9;
+}
+@media (min-width: 720px) {
+  #resultDesc { font-size: 17px; }
+}
 
   </style>
 </head>
@@ -146,7 +183,7 @@
           </div>
         </div>
         <div class="qcard">
-          <h3>3. 吃飯更喜歡吃…</h3>
+          <h3>3. 主食更喜歡吃…</h3>
           <div class="opts">
             <label class="option"><input type="radio" name="q3" value="a"> a. 飯</label>
             <label class="option"><input type="radio" name="q3" value="b"> b. 麵</label>
@@ -210,7 +247,7 @@
           </div>
         </div>
         <div class="qcard">
-          <h3>8. 飲料點…</h3>
+          <h3>8. 喝飲料會點…</h3>
           <div class="opts">
             <label class="option"><input type="radio" name="q8" value="a"> a. 微糖</label>
             <label class="option"><input type="radio" name="q8" value="b"> b. 半糖</label>
@@ -232,14 +269,36 @@
         <div class="muted" id="resultCode">結果代碼：—</div>
         <h2 id="resultTitle">你的美食性格是 —— </h2>
         <p id="resultDesc" style="margin:8px 0 0;">將在這裡顯示你的描述。</p>
-        <div class="promo">
-          <p class="promo-text">想了解更多美食資訊、加入我們社團 👉</p>
-          <div class="promo-row">
-            <a class="btn-primary promo-btn btn-instagram" href="https://www.instagram.com/ntnucookingclub_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">師大美食社</a>
-            <img class="promo-qr" id="promoQR" alt="料理社 IG QR Code"
-       src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fwww.instagram.com%2Fntnucookingclub_%3Futm_source%3Dig_web_button_share_sheet%26igsh%3DZDNlZDc0MzIxNw%3D%3D" />
-          </div>
-          <div class="promo-note">這裡可以放一些補充說明</div>
+       <div class="promo">
+  <p class="promo-text">想了解更多美食資訊、加入我們社團 👉</p>
+
+  <div class="promo-row">
+    <!-- A. 膠囊按鈕（維持你的 IG 連結） -->
+    <div class="promo-item">
+      <a class="btn-primary promo-btn btn-instagram"
+         href="https://www.instagram.com/ntnucookingclub_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+         target="_blank" rel="noopener">
+        師大美食社
+      </a>
+      <div class="promo-caption">社團IG連結</div>
+    </div>
+
+    <!-- B. QR 卡片：改為連到迎新表單 -->
+<div class="promo-item">
+  <a class="promo-qr-link"
+     href="https://docs.google.com/forms/d/e/1FAIpQLSeSLpOJUDOHCWa3yhksq1W7AsSUxH_u8TckBC5CJKBM_H0v0w/viewform?usp=header"
+     target="_blank" rel="noopener" aria-label="前往迎新報名表單（Google 表單）">
+    <img class="promo-qr" id="promoQR" alt="迎新表單 QR Code"
+         src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fdocs.google.com%2Fforms%2Fd%2Fe%2F1FAIpQLSeSLpOJUDOHCWa3yhksq1W7AsSUxH_u8TckBC5CJKBM_H0v0w%2Fviewform%3Fusp%3Dheader" />
+  </a>
+  <div class="promo-caption">9/9(二)迎新茶會表單</div>
+</div>
+  </div>
+
+  <div class="promo-note">點擊即可開啟社團 IG，歡迎追蹤與私訊詢問活動！</div>
+</div>
+
+          <div class="promo-note">迎新茶會9/9(二)歡迎大家加入我們一起玩٩(´ᗜ`*)୨</div>
         </div>
         <div class="actions" style="margin-top:14px;">
           <button class="btn-ghost" id="restartBtn">再測一次</button>
@@ -257,12 +316,25 @@
       { max: 15, code: 'C' },
       { max: 24, code: 'D' },
     ];
-    const RESULT_TEXTS = {
-      A: { title: 'A 型：清爽派', desc: '你偏愛簡潔清爽、直球的口味選擇，做事有效率，不拖泥帶水。' },
-      B: { title: 'B 型：平衡派', desc: '你擅長在口味與口感間取得平衡，做決策也講求穩健與彈性。' },
-      C: { title: 'C 型：風味派', desc: '你重視風味層次與儀式感，對食物與生活都有自己的講究。' },
-      D: { title: 'D 型：冒險派', desc: '你樂於嘗鮮，多半不走常規路線，社交力強、創意滿點。' },
-    };
+   const RESULT_TEXTS = {
+  A: {
+    title: 'A 型：香草冰淇淋小天使',
+    desc: '偏愛純淨與清爽的口味，行事俐落重效率；待人溫柔又可靠，願意主動協助與傾聽，像淡淡香草帶來安定與安心感。'
+  },
+  B: {
+    title: 'B 型：沙拉番茄小工匠',
+    desc: '講究酸甜與口感的平衡，喜歡層次清楚的搭配；做事耐心細緻，重視協作與秩序，願意調和不同意見，讓結果恰到好處。'
+  },
+  C: {
+    title: 'C 型：花茶蛋糕小公主',
+    desc: '熱愛儀式感與細節，美感敏銳，偏好細緻優雅的風味；擅於營造氛圍與節奏，把日常打理成風景，讓人感到放鬆與愉悅。'
+  },
+  D: {
+    title: 'D 型：火辣辣椒小冒險家',
+    desc: '勇於嘗鮮不設限，面對新奇總是眼睛發亮；行動力強且富創意，樂於揪團分享，總能把熱辣能量化作故事與回憶。'
+  }
+};
+
 // === 後端紀錄設定（Google Apps Script） ===
 const ENABLE_LOGGING = true;
 const LOG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzEsbc1uIDRIEtmFfjH6_AP8fpNwW0KmpcBmnpjGuW3aR48CnYPovjUFCrTDalCilQ/exec';
